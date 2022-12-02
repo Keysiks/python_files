@@ -1,0 +1,43 @@
+import telebot
+from telebot import types
+from telebot_class1 import Telebotgamer
+
+
+bot = telebot.TeleBot('5343467426:AAHi7mSr9voSVNo27nfIcOSoMU6P2Ld-wSQ')
+tb = Telebotgamer
+
+
+@bot.message_handler(content_types=['text', 'audio', 'document', 'jpg', 'jpeg'])
+def get_text_messages(message):
+    global tb
+    id = message.from_user.id
+    mess = message.text.lower()
+    if mess == "привет" or mess == '/start':
+        bot.send_message(id, "Привет, выбери что-нибудь")
+        keyboard_scope(message)
+    else:
+        bot.send_message(id, 'Извините, непонятно')
+
+
+def keyboard_scope(message):
+    keyboard = types.InlineKeyboardMarkup()
+    key_music = types.InlineKeyboardButton(text='Лучшая музыка', callback_data='Music')
+    keyboard.add(key_music)
+    key_memas = types.InlineKeyboardButton(text='Классные мемы', callback_data='Memas')
+    keyboard.add(key_memas)
+    key_games = types.InlineKeyboardButton(text='Поиграть в игры', callback_data='Games')
+    keyboard.add(key_games)
+    question = 'Выбери что-нибудь из моих умений:'
+    bot.send_message(message.from_user.id, text=question, reply_markup=keyboard)
+
+
+@bot.callback_query_handler(func=lambda call: True)
+def callback_work(call):
+    global tb
+    if call.data == 'Games':
+        pass
+    elif call.data == 'Memas':
+        file = open(tb.get_memas(), 'rb')
+        bot.send_photo(call.from_user.id, file)
+    elif call.data == 'Music':
+        pass
