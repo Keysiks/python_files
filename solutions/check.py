@@ -19,3 +19,5 @@ for i, order_sum in enumerate(order_sums):
     if order_sum != 0:
         print(f"{i + 1}) {order_sum}")
 print("Итого:", total_sum)
+print("")
+print("")
