@@ -94,6 +94,7 @@ class Game_form(QMainWindow):
         self.timer_label.setText(f"{self.minutes}:{self.seconds}")
         self.start_button.setEnabled(True)
         self.form_text_button.setEnabled(True)
+        self.area_for_typing.setEnabled(False)
         self.area_for_typing.setText("")
         self.form_text()
 

@@ -41,6 +41,7 @@ if __name__ == '__main__':
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
+        sprites.update(50)
         sprites.draw(screen)
         pygame.display.flip()
     pygame.quit()

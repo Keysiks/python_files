@@ -26,7 +26,7 @@
    <string>MainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background: #B22222;</string>
+   <string notr="true">background: #D2691E;</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QRadioButton" name="radioButton">
@@ -84,6 +84,7 @@
 	font-size: 16px;
 	font-family: 'gilroy';
 	font-weight: 900;
+	border-radius: 24px;
 }
 QPushButton:hover {
     background: gold;
@@ -197,7 +198,8 @@ font-size: 16px; font-weight: 900;</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">font-size: 30px; border:  1px solid gold; color: gold;</string>
+     <string notr="true">font-size: 30px; border:  1px solid gold; color: gold;
+border-radius: 24px;</string>
     </property>
     <property name="text">
      <string>01:00</string>
@@ -249,6 +251,7 @@ font-size: 16px; font-weight: 900;</string>
 	font-size: 16px;
 	font-family: 'gilroy';
 	font-weight: 900;
+	border-radius: 24px;
 }
 QPushButton:hover {
     background: gold;
@@ -272,6 +275,7 @@ QPushButton:hover {
      <string notr="true">QPushButton{
 	color: gold;
 	font-weight: 900;
+	border-radius: 24px;
 }
 
 QPushButtpon: hover{
@@ -295,7 +299,8 @@ QPushButtpon: hover{
      <string notr="true">background: white;
 border: 1px solid gold;
 font-size: 30px; 
-font-weight: 900;</string>
+font-weight: 900;
+border-radius: 24px;</string>
     </property>
    </widget>
   </widget>
@@ -304,7 +309,7 @@ font-weight: 900;</string>
  <resources/>
  <connections/>
  <buttongroups>
-  <buttongroup name="language_group"/>
   <buttongroup name="count_group"/>
+  <buttongroup name="language_group"/>
  </buttongroups>
 </ui>
