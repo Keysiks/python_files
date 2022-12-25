@@ -1,0 +1,75 @@
+import pygame
+
+from sprites.game_camera import CameraGroup
+from sprites.game_charecter import Charecter
+from sprites.game_wall import Wall
+
+
+class Game:
+    def __init__(self, procreator=None, kwargs=None):
+        self.procreator = procreator
+        self.kwargs = kwargs
+        self.simple_group = pygame.sprite.Group()
+        self.camera = CameraGroup(procreator=self)
+        self.init_map(self.kwargs.get('map', None))
+        self.camera.init()
+        self.last_button = False
+        self.walls_group = pygame.sprite.Group()
+
+        self.file = open("coords.txt", "a")
+
+        self.player = Charecter((100, 100), self.camera, color='fortegreen', nick="Zawh", procreator=self)
+
+    def init_map(self, map):
+        if map is None:
+            self.procreator.return_error("error occured", "fk you")
+        else:
+            self.map = self.procreator.get_full_path("maps", map)
+            if not self.procreator.check_file_exists(self.procreator.get_full_path(self.map, "map_core.py")):
+                self.procreator.return_error("error occured", "fk you")
+            else:
+                exec(f"from maps.{map}.map_core import Map")
+                exec(f"self.map = Map(path=self.map.__str__(), procreator=self, group=self.simple_group)")
+
+    def recount_volume(self, volume):
+        pass
+
+    def render_frame(self):
+        self.procreator.screen.fill("black")
+        self.camera.update(self.player)
+
+    def count_cords(self, c1, c2):
+        c1 = list(c1)
+        c2 = list(c2)
+        return c1[0] + c2[0], c1[1] + c2[1]
+
+    def events(self, event):
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if self.last_button is False:
+                self.last_button = self.count_cords(event.pos, self.camera.offset)
+            else:
+                coords = self.last_button, self.count_cords(event.pos, self.camera.offset)
+                self.file.write(f'{coords}\n')
+                Wall(coords, groups=(self.camera, self.walls_group))
+                self.last_button = False
+
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_w:
+                self.player.direction[1] = 1
+            elif event.key == pygame.K_d:
+                self.player.direction[2] = 1
+                self.player.rotation = 1
+            elif event.key == pygame.K_a:
+                self.player.direction[0] = 1
+                self.player.rotation = -1
+            elif event.key == pygame.K_s:
+                self.player.direction[3] = 1
+        elif event.type == pygame.KEYUP:
+            if event.key == pygame.K_w:
+                self.player.direction[1] = 0
+            elif event.key == pygame.K_d:
+                self.player.direction[2] = 0
+            elif event.key == pygame.K_a:
+                self.player.direction[0] = 0
+            elif event.key == pygame.K_s:
+                self.player.direction[3] = 0
